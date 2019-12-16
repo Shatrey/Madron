@@ -11,12 +11,12 @@ public class GameManager : MonoBehaviour
 	//public float turnDelay = .1f;
 	//public static GameManager instance = null;
 	public BoardManager boardScript;
-	//public int playerFoodPoints = 100;
-	//[HideInInspector] public bool playersTurn = true;
+    public int playerFoodPoints = 100;
+    [HideInInspector] public bool playersTurn = true;
 
-	//private Text levelText;
-	//private GameObject levelImage;
-	private int level = 1;
+    //private Text levelText;
+    //private GameObject levelImage;
+    private int level = 1;
 	//private List<Enemy> enemies;
 	//private bool enemiesMoving;
 	//private bool doingSetup;
@@ -55,46 +55,46 @@ public class GameManager : MonoBehaviour
 		boardScript.SetupScene (level);
 	}
 
-	//private void HideLevelImage()
-	//{
-	//	levelImage.SetActive (false);
-	//	doingSetup = false;
-	//}
+    //private void HideLevelImage()
+    //{
+    //	levelImage.SetActive (false);
+    //	doingSetup = false;
+    //}
 
-	//public void GameOver()
-	//{
-	//	levelText.text = "After " + level + " days, you starved.";
-	//	levelImage.SetActive (true);
-	//	enabled = false;
-	//}
-	
-	//// Update is called once per frame
-	//void Update () {
-	//	if (playersTurn || enemiesMoving || doingSetup)
-	//		return;
+    public void GameOver()
+    {
+        //levelText.text = "After " + level + " days, you starved.";
+        //levelImage.SetActive(true);
+        //enabled = false;
+    }
 
-	//	StartCoroutine (MoveEnemies ());
-	//}
+    //// Update is called once per frame
+    //void Update () {
+    //	if (playersTurn || enemiesMoving || doingSetup)
+    //		return;
 
-	//public void AddEnemyToList(Enemy script)
-	//{
-	//	enemies.Add (script);
-	//}
+    //	StartCoroutine (MoveEnemies ());
+    //}
 
-	//IEnumerator MoveEnemies()
-	//{
-	//	enemiesMoving = true;
-	//	yield return new WaitForSeconds (turnDelay);
-	//	if (enemies.Count == 0) {
-	//		yield return new WaitForSeconds (turnDelay);
-	//	}
+    //public void AddEnemyToList(Enemy script)
+    //{
+    //	enemies.Add (script);
+    //}
 
-	//	for (int i = 0; i < enemies.Count; i++) {
-	//		enemies [i].MoveEnemy ();
-	//		yield return new WaitForSeconds (enemies [i].moveTime);
-	//	}
+    //IEnumerator MoveEnemies()
+    //{
+    //	enemiesMoving = true;
+    //	yield return new WaitForSeconds (turnDelay);
+    //	if (enemies.Count == 0) {
+    //		yield return new WaitForSeconds (turnDelay);
+    //	}
 
-	//	playersTurn = true;
-	//	enemiesMoving = false;
-	//}
+    //	for (int i = 0; i < enemies.Count; i++) {
+    //		enemies [i].MoveEnemy ();
+    //		yield return new WaitForSeconds (enemies [i].moveTime);
+    //	}
+
+    //	playersTurn = true;
+    //	enemiesMoving = false;
+    //}
 }
