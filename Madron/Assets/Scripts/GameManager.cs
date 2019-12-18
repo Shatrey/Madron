@@ -20,7 +20,6 @@ public class GameManager : MonoBehaviour
     private bool enemiesMoving;
     private bool doingSetup;
 
-    // Use this for initialization
     void Awake () {
 		if (instance == null)
 			instance = this;
