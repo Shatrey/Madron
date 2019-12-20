@@ -60,7 +60,7 @@ public abstract class MovingObject : MonoBehaviour
         where T : Component
     {
         bool canMove = Move(xDir, yDir, out RaycastHit2D hit);
-
+        Debug.unityLogger.Log(hit);
         if (hit.transform == null)
         {
             return;

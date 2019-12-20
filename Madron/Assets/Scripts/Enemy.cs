@@ -4,6 +4,7 @@ using System.Collections;
 public class Enemy : MovingObject
 {
     public int playerDamage;
+    public int hp = 2;
 
     private Animator animator;
     private Transform target;
@@ -50,6 +51,17 @@ public class Enemy : MovingObject
             xDir = target.position.x > transform.position.x ? 1 : -1;
         }
         AttemptMove<Player>(xDir, yDir);
+    }
+
+    public void LoseHp(int lostHp)
+    {
+        animator.SetTrigger("enemyAttacked");
+        hp -= lostHp;
+        if (hp <= 0)
+        {
+            gameObject.SetActive(false);
+            GameManager.instance.ClearDiedEnemies();
+        }
     }
 
     protected override void OnCantMove<T>(T component)

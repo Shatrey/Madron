@@ -9,6 +9,7 @@ public class Player : MovingObject
     public int pointsPerFood = 10;      
     public int pointsPerSoda = 20;      
     public int wallDamage = 1;
+    public int enemyDamage = 1;
 
     public Text foodText;
 
@@ -82,6 +83,7 @@ public class Player : MovingObject
         if (horizontal != 0 || vertical != 0)
         {
             AttemptMove<Wall>(horizontal, vertical);
+            AttemptMove<Enemy>(horizontal, vertical);
         }
     }
 
@@ -103,13 +105,17 @@ public class Player : MovingObject
 
     protected override void OnCantMove<T>(T component)
     {
-        Wall hitWall = component as Wall;
-
-        hitWall.DamageWall(wallDamage);
+        if (component is Wall)
+        {
+            (component as Wall).DamageWall(wallDamage);
+        }
+        else if (component is Enemy)
+        {
+            (component as Enemy).LoseHp(enemyDamage);
+        }
 
         animator.SetTrigger("playerChop");
     }
-
 
     //OnTriggerEnter2D is sent when another object enters a trigger collider attached to this object (2D physics only).
     private void OnTriggerEnter2D(Collider2D other)
