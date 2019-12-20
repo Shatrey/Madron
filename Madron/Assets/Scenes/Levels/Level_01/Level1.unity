@@ -167,6 +167,23 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 21246652, guid: 18dfac7dae219aa49a147eab795d5724, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 3911269ea1770e343b8a32de55aa315c,
+        type: 3}
+    - target: {fileID: 21246652, guid: 18dfac7dae219aa49a147eab795d5724, type: 3}
+      propertyPath: m_Size.x
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 21246652, guid: 18dfac7dae219aa49a147eab795d5724, type: 3}
+      propertyPath: m_Size.y
+      value: 0.46
+      objectReference: {fileID: 0}
+    - target: {fileID: 21246652, guid: 18dfac7dae219aa49a147eab795d5724, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 11446652, guid: 18dfac7dae219aa49a147eab795d5724, type: 3}
       propertyPath: foodText
       value: 
