@@ -2,14 +2,14 @@
 using System.Collections;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Assets.Scripts.Interfaces;
 
 public class Player : MovingObject
 {
     public float restartLevelDelay = 1f;
     public int pointsPerFood = 10;      
     public int pointsPerSoda = 20;      
-    public int wallDamage = 1;
-    public int enemyDamage = 1;
+    public int damage = 1;
 
     public Text foodText;
 
@@ -82,8 +82,7 @@ public class Player : MovingObject
 
         if (horizontal != 0 || vertical != 0)
         {
-            AttemptMove<Wall>(horizontal, vertical);
-            AttemptMove<Enemy>(horizontal, vertical);
+            AttemptMove<MonoBehaviour>(horizontal, vertical);
         }
     }
 
@@ -105,16 +104,11 @@ public class Player : MovingObject
 
     protected override void OnCantMove<T>(T component)
     {
-        if (component is Wall)
+        if (component is IDamagable)
         {
-            (component as Wall).DamageWall(wallDamage);
+            (component as IDamagable).Damage(damage);
+            animator.SetTrigger("playerChop");
         }
-        else if (component is Enemy)
-        {
-            (component as Enemy).LoseHp(enemyDamage);
-        }
-
-        animator.SetTrigger("playerChop");
     }
 
     //OnTriggerEnter2D is sent when another object enters a trigger collider attached to this object (2D physics only).

@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Assets.Scripts.Interfaces;
 
-public class Wall : MonoBehaviour
+public class Wall : MonoBehaviour, IDamagable
 {
     public Sprite dmgSprite;
 	public int hp = 4;
@@ -14,12 +15,12 @@ public class Wall : MonoBehaviour
 		spriteRenderer = GetComponent<SpriteRenderer> ();
 	}
 
-    public void DamageWall(int loss)
+    public void Damage(int damage)
     {
-        SoundManager.instance.RandomizeSfx (chopSound1, chopSound2);
+        SoundManager.instance.RandomizeSfx(chopSound1, chopSound2);
         spriteRenderer.sprite = dmgSprite;
-		hp -= loss;
-		if (hp <= 0)
-			gameObject.SetActive (false);
+        hp -= damage;
+        if (hp <= 0)
+            gameObject.SetActive(false);
     }
 }
