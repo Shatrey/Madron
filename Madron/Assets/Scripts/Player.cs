@@ -11,7 +11,7 @@ public class Player : MovingObject
     public int pointsPerBigHeart = 20;      
     public int damage = 1;
 
-    public Text foodText;
+    public Text energyText;
     
     public AudioClip moveSound1;
 	public AudioClip moveSound2;
@@ -22,23 +22,23 @@ public class Player : MovingObject
 	public AudioClip gameOverSound;
 
     private Animator animator;          
-    private int food;                   
+    private int energy;                   
 
     //Start overrides the Start function of MovingObject
     protected override void Start()
     {
         animator = GetComponent<Animator>();
 
-        food = GameManager.instance.playerFoodPoints;
+        energy = GameManager.instance.playerEnergyPoints;
 
-        foodText.text = "Food: " + food;
+        energyText.text = "Energy: " + energy;
 
         base.Start();
     }
 
     private void OnDisable()
     {
-        GameManager.instance.playerFoodPoints = food;
+        GameManager.instance.playerEnergyPoints = energy;
     }
 
     private void Update()
@@ -88,8 +88,8 @@ public class Player : MovingObject
 
     protected override void AttemptMove<T>(int xDir, int yDir)
     {
-        food--;
-        foodText.text = "Food: " + food;
+        energy--;
+        energyText.text = "Energy: " + energy;
 
         base.AttemptMove<T>(xDir, yDir);
         RaycastHit2D hit;
@@ -121,15 +121,15 @@ public class Player : MovingObject
         }
         else if (other.tag == "SmallHeart")
         {
-            food += pointsPerSmallHeart;
-            foodText.text = "+" + pointsPerSmallHeart + " Food: " + food;
+            energy += pointsPerSmallHeart;
+            energyText.text = "+" + pointsPerSmallHeart + " Energy: " + energy;
             SoundManager.instance.RandomizeSfx(eatSound1, eatSound2);
             other.gameObject.SetActive(false);
         }
         else if (other.tag == "BigHeart")
         {
-            food += pointsPerBigHeart;
-            foodText.text = "+" + pointsPerBigHeart + " Food: " + food;
+            energy += pointsPerBigHeart;
+            energyText.text = "+" + pointsPerBigHeart + " Energy: " + energy;
             SoundManager.instance.RandomizeSfx(drinkSound1, drinkSound2);
             other.gameObject.SetActive(false);
         }
@@ -140,17 +140,17 @@ public class Player : MovingObject
         SceneManager.LoadScene(0);
     }
 
-    public void LoseFood(int loss)
+    public void LoseEnergy(int loss)
     {
         animator.SetTrigger("playerHit");
-        food -= loss;
-        foodText.text = "-" + loss + " Food: " + food;
+        energy -= loss;
+        energyText.text = "-" + loss + " Energy: " + energy;
         CheckIfGameOver();
     }
 
     private void CheckIfGameOver()
     {
-        if (food <= 0)
+        if (energy <= 0)
         {
             SoundManager.instance.PlaySingle(gameOverSound);
 			SoundManager.instance.musicSource.Stop();

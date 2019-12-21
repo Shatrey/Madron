@@ -58,7 +58,7 @@ public class Enemy : MovingObject, IDamagable
     {
         Player hitPlayer = component as Player;
 
-        hitPlayer.LoseFood(playerDamage);
+        hitPlayer.LoseEnergy(playerDamage);
 
         animator.SetTrigger("enemyAttack");
 
