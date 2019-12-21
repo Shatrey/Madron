@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
 using System.Linq;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -33,7 +34,7 @@ public class GameManager : MonoBehaviour
 		InitGame ();
 	}
 
-	void OnLevelWasLoaded (int index)
+    void OnLevelWasLoaded (int index)
 	{
 		level++;
 

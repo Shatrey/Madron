@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MenuScript : MonoBehaviour
 {
@@ -35,6 +36,14 @@ public class MenuScript : MonoBehaviour
         Time.timeScale = 1f;
 
         IsGamePaused = false;
+    }
+
+    public void Restart()
+    {
+        Resume();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        //Application.LoadLevel(Application.loadedLevel);
+        //SceneManager.LoadScene("GameProcess");
     }
 
     public void Quit()
