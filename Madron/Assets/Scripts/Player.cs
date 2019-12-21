@@ -2,13 +2,14 @@
 using System.Collections;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Assets.Scripts.Interfaces;
 
 public class Player : MovingObject
 {
     public float restartLevelDelay = 1f;
     public int pointsPerFood = 10;      
     public int pointsPerSoda = 20;      
-    public int wallDamage = 1;
+    public int damage = 1;
 
     public Text foodText;
 
@@ -44,18 +45,44 @@ public class Player : MovingObject
     {
         if (!GameManager.instance.playersTurn) return;
 
-        int horizontal = (int)(Input.GetAxisRaw("Horizontal"));
-        int vertical = (int)(Input.GetAxisRaw("Vertical"));
+        int horizontal = 0;
+        int vertical = 0;
 
-        //Check if moving horizontally, if so set vertical to zero.
-        if (horizontal != 0)
-        {
-            vertical = 0;
-        }
+        #if UNITY_EDITOR || UNITY_STANDALONE || UNITY_WEBPLAYER
+
+		horizontal = (int)Input.GetAxisRaw ("Horizontal");
+		vertical = (int)Input.GetAxisRaw ("Vertical");
+
+		if (horizontal != 0)
+			vertical = 0;
+
+        #else
+
+		if (Input.touchCount > 0)
+		{
+			Touch myTouch = Input.touches[0];
+
+			if (myTouch.phase == TouchPhase.Began)
+			{
+				touchOrigin = myTouch.position;
+			} else if (myTouch.phase == TouchPhase.Ended && touchOrigin.x >= 0)
+			{
+				Vector2 touchEnd = myTouch.position;
+				float x = touchEnd.x - touchOrigin.x;
+				float y = touchEnd.y - touchOrigin.y;
+				touchOrigin.x = -1;
+				if (Mathf.Abs(x) > Mathf.Abs(y))
+					horizontal = x > 0 ? 1 : -1;
+				else
+					vertical = y > 0 ? 1 : -1;
+			}
+		}
+
+        #endif
 
         if (horizontal != 0 || vertical != 0)
         {
-            AttemptMove<Wall>(horizontal, vertical);
+            AttemptMove<MonoBehaviour>(horizontal, vertical);
         }
     }
 
@@ -77,13 +104,12 @@ public class Player : MovingObject
 
     protected override void OnCantMove<T>(T component)
     {
-        Wall hitWall = component as Wall;
-
-        hitWall.DamageWall(wallDamage);
-
-        animator.SetTrigger("playerChop");
+        if (component is IDamagable)
+        {
+            (component as IDamagable).Damage(damage);
+            animator.SetTrigger("playerChop");
+        }
     }
-
 
     //OnTriggerEnter2D is sent when another object enters a trigger collider attached to this object (2D physics only).
     private void OnTriggerEnter2D(Collider2D other)

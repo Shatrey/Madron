@@ -1,9 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Assets.Scripts.Interfaces;
 
-public class Enemy : MovingObject
+public class Enemy : MovingObject, IDamagable
 {
     public int playerDamage;
+    public int hp = 2;
 
     private Animator animator;
     private Transform target;
@@ -61,5 +63,17 @@ public class Enemy : MovingObject
         animator.SetTrigger("enemyAttack");
 
         SoundManager.instance.RandomizeSfx (enemyAttack1, enemyAttack2);
+    }
+
+    public void Damage(int damage)
+    {
+        // TODO: implement trigger
+        // animator.SetTrigger("enemyAttacked");
+        hp -= damage;
+        if (hp <= 0)
+        {
+            gameObject.SetActive(false);
+            GameManager.instance.ClearDiedEnemies();
+        }
     }
 }

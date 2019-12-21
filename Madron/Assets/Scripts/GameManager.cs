@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using System.Linq;
 
 public class GameManager : MonoBehaviour
 {
@@ -80,20 +81,25 @@ public class GameManager : MonoBehaviour
         enemies.Add(script);
     }
 
+    public void ClearDiedEnemies()
+    {
+        enemies = enemies.Where(e => e.isActiveAndEnabled).ToList();
+    }
+
     IEnumerator MoveEnemies()
     {
         enemiesMoving = true;
         yield return new WaitForSeconds(turnDelay);
-        //delay even if there no enemies
+
         if (enemies.Count == 0)
         {
             yield return new WaitForSeconds(turnDelay);
         }
 
-        for (int i = 0; i < enemies.Count; i++)
+        foreach (var enemy in enemies)
         {
-            enemies[i].MoveEnemy();
-            yield return new WaitForSeconds(enemies[i].moveTime);
+            enemy.MoveEnemy();
+            yield return new WaitForSeconds(enemy.moveTime);
         }
 
         playersTurn = true;
