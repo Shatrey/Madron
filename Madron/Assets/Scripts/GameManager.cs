@@ -34,6 +34,12 @@ public class GameManager : MonoBehaviour
 		InitGame ();
 	}
 
+    public void Restart()
+    {
+        level = 1;
+        SceneManager.LoadScene(0);
+    }
+
     void OnLevelWasLoaded (int index)
 	{
 		level++;

@@ -41,7 +41,8 @@ public class MenuScript : MonoBehaviour
     public void Restart()
     {
         Resume();
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        GameManager.instance.Restart();
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         //Application.LoadLevel(Application.loadedLevel);
         //SceneManager.LoadScene("GameProcess");
     }
