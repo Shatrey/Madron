@@ -7,12 +7,12 @@ using Assets.Scripts.Interfaces;
 public class Player : MovingObject
 {
     public float restartLevelDelay = 1f;
-    public int pointsPerFood = 10;      
-    public int pointsPerSoda = 20;      
+    public int pointsPerSmallHeart = 10;      
+    public int pointsPerBigHeart = 20;      
     public int damage = 1;
 
     public Text foodText;
-
+    
     public AudioClip moveSound1;
 	public AudioClip moveSound2;
 	public AudioClip eatSound1;
@@ -119,17 +119,17 @@ public class Player : MovingObject
             Invoke("Restart", restartLevelDelay);
             enabled = false;
         }
-        else if (other.tag == "Food")
+        else if (other.tag == "SmallHeart")
         {
-            food += pointsPerFood;
-            foodText.text = "+" + pointsPerSoda + " Food: " + food;
+            food += pointsPerSmallHeart;
+            foodText.text = "+" + pointsPerSmallHeart + " Food: " + food;
             SoundManager.instance.RandomizeSfx(eatSound1, eatSound2);
             other.gameObject.SetActive(false);
         }
-        else if (other.tag == "Soda")
+        else if (other.tag == "BigHeart")
         {
-            food += pointsPerSoda;
-            foodText.text = "+" + pointsPerSoda + " Food: " + food;
+            food += pointsPerBigHeart;
+            foodText.text = "+" + pointsPerBigHeart + " Food: " + food;
             SoundManager.instance.RandomizeSfx(drinkSound1, drinkSound2);
             other.gameObject.SetActive(false);
         }

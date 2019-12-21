@@ -7,6 +7,8 @@ TagManager:
   - Food
   - Exit
   - Enemy
+  - SmallHeart
+  - BigHeart
   - Soda
   layers:
   - Default
